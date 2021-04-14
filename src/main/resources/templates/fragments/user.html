@@ -14,27 +14,48 @@
     </th:block>
 </section>
 
-<section class="listing flex-row" th:fragment="short(user)">
+<section class="listing flex-row" th:fragment="short(userSubject)">
     <div class="image-small">
-        <a th:href="'/users/' + ${user.id}">
-            Image goes here
+        <a th:href="'/users/' + ${userSubject.id}">
+            <img th:if="${userSubject} and ${userSubject.hasImage}"
+                 th:src="'/' + ${@fileUploadService.upload_root} + @{${user.imageUrl}}" />
+            <div th:unless="${userSubject} and ${userSubject.hasImage}">
+                User has not uploaded profile picture
+            </div>
         </a>
     </div>
     <div class="listing-content">
-        <a th:href="'/users/' + ${user.id}">
-            <h1 th:text="${user.fullName}"></h1>
+        <a th:href="'/users/' + ${userSubject.id}">
+            <h1 th:text="${userSubject.fullName}"></h1>
         </a>
         <p><strong>Date of Birth:</strong>
-            <th:block th:text="${user.dateOfBirth}"></th:block>
+            <th:block th:text="${userSubject.dateOfBirth}"></th:block>
         </p>
         <h2>Bio</h2>
-        <th:block th:text="${user.shortBio}"></th:block>
+        <th:block th:text="${userSubject.shortBio}"></th:block>
     </div>
 </section>
 
 <div class="detail user-detail" th:fragment="detail(userSubject)">
     <h1>User profile</h1>
-<!--    <img th:src="@{${user.imagePath}}" width="400" height="400"/>-->
+    <section class="profile-picture">
+        <div class="profile-picture-large">
+            <img th:if="${userSubject} and ${userSubject.hasImage}"
+                 th:src="'/' + ${@fileUploadService.upload_root} + @{${userSubject.imageUrl}}" width="400" height="400"/>
+            <div th:block th:unless="${userSubject} and ${userSubject.hasImage}">
+                User has not uploaded a profile picture
+            </div>
+        </div>
+        <th:block th:if="${user} and ${user.id == userSubject.id}">
+            <form th:action="'/users/' + ${userSubject.id} + '/image'"
+                  method="post"
+                  enctype="multipart/form-data">
+                <label for="uploadProfilePicture">Upload a profile picture</label>
+                <input type="file" id="uploadProfilePicture" th:name="image" accept="image/*"></input>
+                <input type="submit" value="Submit"></input>
+            </form>
+        </th:block>
+    </section>
     <div class="user-detail-content">
         <h2>First Name:</h2>
         <section th:replace="fragments/components :: userEditableField(

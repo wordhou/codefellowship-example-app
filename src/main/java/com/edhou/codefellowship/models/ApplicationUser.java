@@ -1,9 +1,14 @@
 package com.edhou.codefellowship.models;
 
+import com.edhou.codefellowship.services.FileUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.*;
 
 @Entity
@@ -17,6 +22,7 @@ public class ApplicationUser implements UserDetails {
     String firstName;
     String lastName;
     Date dateOfBirth;
+    String profilePicture;
     String bio;
 
     @OneToMany(mappedBy = "author")
@@ -138,5 +144,17 @@ public class ApplicationUser implements UserDetails {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.profilePicture = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return getId() + "/" + profilePicture;
+    }
+
+    public boolean getHasImage() {
+        return profilePicture != null;
     }
 }

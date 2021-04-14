@@ -26,6 +26,9 @@
             </th:block>
             <th:block th:if="${user}">
                 <li>
+                    <a th:href="'/users/' + ${user.id}">Your profile</a>
+                </li>
+                <li>
                     <a href="/editor">New Post</a>
                 </li>
                 <li>

@@ -1,6 +1,7 @@
 package com.edhou.codefellowship.controllers;
 
 import com.edhou.codefellowship.models.ApplicationUser;
+import com.edhou.codefellowship.services.FileUploadService;
 import com.edhou.codefellowship.services.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,9 +9,12 @@ import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +27,9 @@ public class UserController {
 
     @Autowired
     PasswordEncoder encoder;
+
+    @Autowired
+    FileUploadService fileUploadService;
 
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public String getUsers(Model model) {
@@ -69,6 +76,22 @@ public class UserController {
         //if (dateOfBirth != null) user.setDateOfBirth(dateOfBirth);
         repo.save(user);
 
+        return new RedirectView("/users/" + user.getId());
+    }
+
+    @RequestMapping(value="/users/{userId}/image", method = RequestMethod.POST)
+    public RedirectView setProfilePicture(@PathVariable long userId,
+                             Principal principal,
+                             @RequestParam("image") MultipartFile upload
+                             ) throws IOException {
+        ApplicationUser user = repo.getOne(userId);
+        if (!principal.getName().equals(user.getUsername()))
+            throw new AuthorizationServiceException("");
+        String fileName = StringUtils.cleanPath(upload.getOriginalFilename());
+        String uploadDir = "" + user.getId();
+        fileUploadService.saveFile(uploadDir, fileName, upload);
+        user.setImageUrl(fileName);
+        repo.save(user);
         return new RedirectView("/users/" + user.getId());
     }
 
