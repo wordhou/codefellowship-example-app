@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.fullName}"></title>
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<section class="list" th:fragment="list(users)">
+    <th:block th:each="user : ${users}">
+        <section class="listing" th:replace="fragments/user :: short(${user})"></section>
+    </th:block>
+</section>
+
+<section class="listing flex-row" th:fragment="short(user)">
+    <div class="image-small">
+        <a th:href="'/users/' + ${user.id}">
+            Image goes here
+        </a>
+    </div>
+    <div class="listing-content">
+        <a th:href="'/users/' + ${user.id}">
+            <h1 th:text="${user.fullName}"></h1>
+        </a>
+        <p><strong>Date of Birth:</strong>
+            <th:block th:text="${user.dateOfBirth}"></th:block>
+        </p>
+        <h2>Bio</h2>
+        <th:block th:text="${user.shortBio}"></th:block>
+    </div>
+</section>
+
+<div class="detail user-detail" th:fragment="detail(userSubject)">
+    <h1>User profile</h1>
+<!--    <img th:src="@{${user.imagePath}}" width="400" height="400"/>-->
+    <div class="user-detail-content">
+        <h2>First Name:</h2>
+        <section th:replace="fragments/components :: userEditableField(
+        resourceName='firstName', action='/users/' + ${userSubject.id} + '?_method=PUT',
+        value=${userSubject.displayFirstName},
+        canEdit=${user} and ${user.id == userSubject.id})">
+        </section>
+        <h2>Last Name:</h2>
+        <section th:replace="fragments/components :: userEditableField(
+        resourceName='lastName', action='/users/' + ${userSubject.id} + '?_method=PUT',
+        value=${userSubject.displayLastName},
+        canEdit=${user} and ${user.id == userSubject.id})">
+        </section>
+        <h2>Bio:</h2>
+        <section th:replace="fragments/components :: userEditableTextareaField(
+        resourceName='bio', action='/users/' + ${userSubject.id} + '?_method=PUT',
+        value=${userSubject.displayBio},
+        canEdit=${user} and ${user.id == userSubject.id})">
+        </section>
+        <section th:replace="fragments/components :: userEditableDateField(
+        resourceName='dateOfBirth', action='/users/' + ${userSubject.id} + '?_method=PUT', value=${userSubject.dateOfBirth},
+        canEdit=${user} and ${user.id == userSubject.id})">
+        </section>
+    </div>
+    <h1><th:block th:text="${userSubject.displayName}"></th:block>'s Posts</h1>
+    <section th:replace="fragments/post :: list(${userSubject.posts})"></section>
+</div>
+</body>
+</html>

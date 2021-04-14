@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:fragment="header">
+    <h1>Codefellowship</h1>
+    <h2>Make posts with your fellows</h2>
+    <nav class="navbar-top">
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/posts">Posts</a>
+            </li>
+            <li>
+                <a href="/users">Fellows</a>
+            </li>
+            <th:block th:unless="${user}">
+                <li>
+                    <a href="/login">Login</a> or <a href="/signup">sign up</a>
+                </li>
+            </th:block>
+            <th:block th:if="${user}">
+                <li>
+                    <a href="/editor">New Post</a>
+                </li>
+                <li>
+                    Logged in as
+                    <th:block th:text="${user.username}"></th:block>
+                </li>
+                <li>
+                <a href="/logout">Logout</a>
+                </li>
+            </th:block>
+        </ul>
+    </nav>
+</header>
+
+<footer th:fragment="footer">
+    &copy; 2021 Edward Hou. This is a demo project for developing a Spring MVC application.
+</footer>
+</body>
+</html>

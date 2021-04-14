@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<section th:fragment="userEditableField(resourceName, action, value, canEdit)">
+    <label th:class="'edit' + ${resourceName}" th:for="'edit' + ${resourceName}">
+        <th:block th:text="${value}"></th:block>
+    </label>
+    <form th:if="${canEdit}" class="toggleable-edit" th:action="${action}" method="post">
+        <input type="text" th:id="'edit' + ${resourceName}" th:name="${resourceName}" th:value="${value}"></input>
+        <input type="submit" value="Submit"></input>
+    </form>
+</section>
+
+<section th:fragment="userEditableTextareaField(resourceName, action, value, canEdit)">
+    <label th:class="'edit' + ${resourceName}" th:for="'edit' + ${resourceName}">
+        <th:block th:text="${value}"></th:block>
+    </label>
+    <form th:if="${canEdit}" class="toggleable-edit" th:action="${action}" method="post">
+        <textarea th:id="'edit' + ${resourceName}" th:name="${resourceName}" th:value="${value}"></textarea>
+        <input type="submit" value="Submit"></input>
+    </form>
+</section>
+
+<section th:fragment="userEditableDateField(resourceName, action, value, canEdit)">
+    <label th:class="'edit' + ${resourceName}" th:for="'edit' + ${resourceName}">
+        <th:block th:text="${value}"></th:block>
+    </label>
+    <form th:if="${canEdit}" class="toggleable-edit" th:action="${action}" method="post">
+        <input type="date" th:id="'edit' + ${resourceName}" th:name="${resourceName}" th:value="${value}"></input>
+        <input type="submit" value="Submit"></input>
+    </form>
+</section>
+
+<section th:fragment="test(string)">
+    <h1 th:text="${string}"></h1>
+</section>
+
+</body>
+</html>

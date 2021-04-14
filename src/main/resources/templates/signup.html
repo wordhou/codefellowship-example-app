@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header th:replace="fragments/page :: header"></header>
+<main>
+<h1>New user</h1>
+<form action="/users" method="post">
+    <fieldset>
+        <label for="username-input">Username: </label>
+        <input type="text" id="username-input" name="username"></input>
+    </fieldset>
+    <fieldset>
+        <label for="password-input">Password: </label>
+        <input type="password" id="password-input" name="password"></input>
+    </fieldset>
+    <input type="submit" />
+</form>
+<a href="/login">Existing users log in here</a>
+</main>
+<footer th:replace="fragments/page :: footer"></footer>
+</body>
+</html>
