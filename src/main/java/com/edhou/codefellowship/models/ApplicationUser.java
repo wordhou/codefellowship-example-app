@@ -22,6 +22,10 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "author")
     List<Post> posts;
 
+    public ApplicationUser() {
+
+    }
+
     public ApplicationUser(String username, String password) {
         this.username = username;
         this.password = password;
@@ -72,11 +76,39 @@ public class ApplicationUser implements UserDetails {
         return lastName;
     }
 
+    public String getDisplayFirstName() {
+        return firstName == null || firstName.isBlank() ? "Add first name" : firstName;
+    }
+
+    public String getDisplayLastName() {
+        return firstName == null || lastName.isBlank() ? "Add last name" : lastName;
+    }
+
+    public String getDisplayBio() {
+        return bio == null || bio.isBlank() ? "Add a bio to your profile" : bio;
+    }
+
+    public String getFullName() {
+        return String.format("%s %s", firstName, lastName);
+    }
+
+    public String getDisplayName() {
+        return firstName == null ?
+                username :
+                lastName == null ?
+                        firstName :
+                        String.format("%s %s", firstName, lastName);
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
     public String getBio() {
+        return bio;
+    }
+
+    public String getShortBio() {
         return bio;
     }
 

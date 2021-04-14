@@ -1,0 +1,153 @@
+body {
+  min-height: 100vh;
+}
+
+body > header {
+  padding: 0.25em;
+  display: flex;
+  flex-flow: row wrap;
+  font: 1em Helvetica, sans-serif;
+  align-items: baseline;
+  background-color: darkgrey;
+  color: white;
+}
+
+body > header > h1 {
+  display: block;
+  margin: 0 0.8em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+body > header > h2 {
+  font-size: 1.2em;
+  margin-right: 0.4em;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar-top {
+  padding: 0.2em;
+}
+
+.navbar-top > ul {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.navbar-top li {
+  display: block;
+  padding: 0.3em;
+}
+
+body > footer {
+  background-color: darkgrey;
+  padding: 0.5em;
+  font: 1em Helvetica, sans-serif;
+  color: white;
+}
+
+main {
+  padding: 0.5em 1em;
+  font: 1em Helvetica, sans-serif;
+  max-width: 50em;
+}
+
+main > h1 {
+  margin: 0.8em 0.25em;
+  font-weight: bold;
+  font-size: 1.6em;
+}
+
+main > h2 {
+  margin: 1.5em 0.2em;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.list {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.listing {
+  background-color: lightgrey;
+  margin: 0.4em;
+  padding: 0.8em;
+}
+
+.listing h1 {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.listing h2 {
+  font-style: italic;
+}
+
+.image-small {
+  max-width: 10em;
+  max-height: 10em;
+}
+
+.listing-content {
+margin-left: 1em;
+padding: 0.4em;
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.detail {
+  padding: 1em;
+  background: lightslategrey;
+  margin: 0.5em;
+}
+
+.detail h1 {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.detail h2 {
+  font-size: 1.1em;
+}
+
+.editable-field {
+  display: flex;
+  flex-flow: row;
+}
+
+.editable-field > label:hover {
+  cursor: edit;
+  color: #668;
+}
+
+.toggleable-edit {
+  margin-left: 1em;
+  opacity: 0;
+  pointer-events: none;
+  align-items: baseline;
+}
+
+.toggleable-edit:focus-within {
+  opacity: 1;
+  pointer-events: all;
+}
+
+a.album-link {
+  color: black;
+}
+
+a.album-link:hover {
+  color: black;
+}
+
+a.album-link:active {
+  color: black;
+}

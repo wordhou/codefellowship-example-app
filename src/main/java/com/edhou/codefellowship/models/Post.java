@@ -5,6 +5,10 @@ import java.util.Date;
 
 @Entity
 public class Post {
+    public long getId() {
+        return id;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     long id;
@@ -14,6 +18,9 @@ public class Post {
 
     String body;
     Date createdAt;
+
+    public Post() {
+    }
 
     public Post(ApplicationUser author, String body) {
         this.author = author;
@@ -26,6 +33,10 @@ public class Post {
     }
 
     public String getBody() {
+        return body;
+    }
+
+    public String getShortBody() {
         return body;
     }
 
