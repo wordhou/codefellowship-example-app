@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign up for Codefellowship</title>
     <link rel="stylesheet" href="/reset.css">
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -20,6 +20,9 @@
         <input type="password" id="password-input" name="password"></input>
     </fieldset>
     <input type="submit" />
+    <div class="message" th:if="${error == 'username_taken'}">Username is already taken</div>
+    <div class="message" th:if="${error == 'password_too_short'}">Password must be at least 3 characters</div>
+    <div class="message" th:if="${error == 'password_invalid'}" th:text="${@passwordValidator.rulesDescription}"></div>
 </form>
 <a href="/login">Existing users log in here</a>
 </main>

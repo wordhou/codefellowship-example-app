@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="">
 <head>
     <meta charset="UTF-8">
-    <title>Post</title>
+    <title th:text="${post.author.displayName} + '\'s Post'"></title>
     <link rel="stylesheet" href="/reset.css">
     <link rel="stylesheet" href="/style.css">
 </head>

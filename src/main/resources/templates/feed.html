@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Codefellowship Posts</title>
+    <title>Your feed</title>
     <link rel="stylesheet" href="/reset.css">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header th:replace="fragments/page :: header"></header>
 <main>
-    <h1>Posts</h1>
+    <h1>Your feed</h1>
+    <th:block th:if="${user} and ${posts.size() > 0}">
     <section th:replace="fragments/post :: list(${posts})"></section>
+    </th:block>
+    <th:block th:unless="${user} and ${posts.size() > 0}">
+        You don't have any posts in your feed. Try following some <a th:href="/users">fellows</a>!
+    </th:block>
 </main>
 <footer th:replace="fragments/page :: footer"></footer>
 </body>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${user.fullName}"></title>
+    <title th:text="${user.displayName}"></title>
     <link rel="stylesheet" href="/reset.css">
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -26,7 +26,7 @@
     </div>
     <div class="listing-content">
         <a th:href="'/users/' + ${userSubject.id}">
-            <h1 th:text="${userSubject.fullName}"></h1>
+            <h1 th:text="${userSubject.displayName}"></h1>
         </a>
         <p><strong>Date of Birth:</strong>
             <th:block th:text="${userSubject.dateOfBirth}"></th:block>
@@ -35,6 +35,19 @@
         <th:block th:text="${userSubject.shortBio}"></th:block>
     </div>
 </section>
+
+<div class="follow-button" th:fragment="followButton(userSubject)">
+    <th:block th:if="${user}">
+        <form th:unless="${userSubject.followers.contains(user)}"
+                th:action="'/users/' + ${userSubject.id} + '/followers?_method=PUT'" method="post">
+            <input type="submit" value="Follow user">
+        </form>
+        <form th:if="${userSubject.followers.contains(user)}"
+              th:action="'/users/' + ${userSubject.id} + '/followers?_method=DELETE'" method="post">
+            <input type="submit" value="Unfollow user">
+        </form>
+    </th:block>
+</div>
 
 <div class="detail user-detail" th:fragment="detail(userSubject)">
     <h1>User profile</h1>
@@ -55,6 +68,7 @@
                 <input type="submit" value="Submit"></input>
             </form>
         </th:block>
+        <div th:replace="fragments/user :: followButton(${userSubject})"></div>
     </section>
     <div class="user-detail-content">
         <h2>First Name:</h2>
