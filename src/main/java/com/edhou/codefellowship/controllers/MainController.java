@@ -1,6 +1,7 @@
 package com.edhou.codefellowship.controllers;
 
 import com.edhou.codefellowship.models.ApplicationUser;
+import com.edhou.codefellowship.services.PostRepository;
 import com.edhou.codefellowship.services.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,6 @@ import java.util.Optional;
 
 @Controller
 public class MainController {
-    @Autowired
-    UserRepository userRepo;
-
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String getHomePage() {
         return "home.html";
@@ -27,8 +25,10 @@ public class MainController {
     }
 
     @RequestMapping(value="/signup", method= RequestMethod.GET)
-    public String getSignupPage(String error) {
-        return "signup.html";
+    public String getSignupPage(String error, Model model) {
+        model.addAttribute("error", error);
+
+        return "signup";
     }
 
     @RequestMapping(value="/error", method= RequestMethod.GET)

@@ -21,12 +21,10 @@ public class ModelAttributeConfig {
                 .flatMap(p -> userRepo.findByUsername(principal.getName()))
                 .ifPresent(u -> model.addAttribute("user", u));
 
-        /*
-        if(principal != null) {
-            ApplicationUser user = userRepo.getByUsername(principal.getName());
-            model.addAttribute("user", user)
-        }
-         */
+//        if(principal != null) {
+//            ApplicationUser user = userRepo.getByUsername(principal.getName());
+//            model.addAttribute("user", user);
+//        }
     }
 
 }

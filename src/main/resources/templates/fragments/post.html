@@ -16,7 +16,7 @@
 </section>
 
 <section class="listing" th:fragment="short(post)">
-    <h1>Post by <th:block th:text="${post.author.fullName}"></th:block>
+    <h1><a th:href="'/posts/' + ${post.id}">Post</a> by <a th:href="'/users/' + ${post.author.id}" th:text="${post.author.displayName}"></a>
          on
         <th:block th:text="${post.createdAt}"></th:block>
     </h1>
@@ -26,10 +26,10 @@
 </section>
 
 <section class="detail post-detail" th:fragment="detail(post)">
-    <h1>Post by <th:block th:text="${post.author.fullName}"></th:block></h1>
+    <h1>Post by <a th:href="'/users/' + ${post.author.id}" th:text="${post.author.displayName}"></a></h1>
 
     <h2>Posted on <th:block th:text="${post.createdAt}"></th:block></h2>
-    <section th:text="${post.body}">
+    <section th:text="${post.body}"></section>
 </section>
 
 </body>
