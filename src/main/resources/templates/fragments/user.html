@@ -37,7 +37,7 @@
 </section>
 
 <div class="follow-button" th:fragment="followButton(userSubject)">
-    <th:block th:if="${user}">
+    <th:block th:if="${user} and ${user.id != userSubject.id}">
         <form th:unless="${userSubject.followers.contains(user)}"
                 th:action="'/users/' + ${userSubject.id} + '/followers?_method=PUT'" method="post">
             <input type="submit" value="Follow user">
@@ -68,30 +68,41 @@
                 <input type="submit" value="Submit"></input>
             </form>
         </th:block>
-        <div th:replace="fragments/user :: followButton(${userSubject})"></div>
+        <div
+             th:replace="fragments/user :: followButton(${userSubject})"></div>
     </section>
-    <div class="user-detail-content">
+    <div class="content user-detail-content">
         <h2>First Name:</h2>
         <section th:replace="fragments/components :: userEditableField(
         resourceName='firstName', action='/users/' + ${userSubject.id} + '?_method=PUT',
-        value=${userSubject.displayFirstName},
-        canEdit=${user} and ${user.id == userSubject.id})">
+        value=${userSubject.firstName},
+        isEmpty=${userSubject.firstName == null},
+        editText='Add a first name',
+        emptyText='User has not added a first name')">
         </section>
         <h2>Last Name:</h2>
         <section th:replace="fragments/components :: userEditableField(
         resourceName='lastName', action='/users/' + ${userSubject.id} + '?_method=PUT',
-        value=${userSubject.displayLastName},
-        canEdit=${user} and ${user.id == userSubject.id})">
+        value=${userSubject.lastName},
+        isEmpty=${userSubject.lastName == null},
+        editText='Add a last name',
+        emptyText='User has not added a last name')">
         </section>
         <h2>Bio:</h2>
-        <section th:replace="fragments/components :: userEditableTextareaField(
+        <section th:replace="fragments/components :: userEditableTextarea(
         resourceName='bio', action='/users/' + ${userSubject.id} + '?_method=PUT',
-        value=${userSubject.displayBio},
-        canEdit=${user} and ${user.id == userSubject.id})">
+        value=${userSubject.bio},
+        isEmpty=${userSubject.bio == null},
+        editText='Add a bio',
+        emptyText='User has not added a bio')">
         </section>
+        <h2>Date of birth:</h2>
         <section th:replace="fragments/components :: userEditableDateField(
-        resourceName='dateOfBirth', action='/users/' + ${userSubject.id} + '?_method=PUT', value=${userSubject.dateOfBirth},
-        canEdit=${user} and ${user.id == userSubject.id})">
+        resourceName='dateOfBirth', action='/users/' + ${userSubject.id} + '?_method=PUT',
+        value=${userSubject.displayDateOfBirth},
+        isEmpty=${userSubject.dateOfBirth == null},
+        editText='Add a date of birth',
+        emptyText='User has not added a date of birth')">
         </section>
     </div>
     <h1><th:block th:text="${userSubject.displayName}"></th:block>'s Posts</h1>

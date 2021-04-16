@@ -6,10 +6,10 @@
 </head>
 <body>
 <section class="list" th:fragment="list(posts)">
-    <p>
+    <h2>
         <th:block th:text="${posts.size()}">
         </th:block> posts
-    </p>
+    </h2>
     <th:block th:each="post : ${posts}">
         <section th:replace="fragments/post :: short(${post})"></section>
     </th:block>

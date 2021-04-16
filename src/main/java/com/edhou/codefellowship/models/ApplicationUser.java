@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Entity
@@ -21,7 +23,7 @@ public class ApplicationUser implements UserDetails {
     String password;
     String firstName;
     String lastName;
-    Date dateOfBirth;
+    LocalDateTime dateOfBirth;
     String profilePicture;
     String bio;
 
@@ -106,7 +108,14 @@ public class ApplicationUser implements UserDetails {
                         String.format("%s %s", firstName, lastName);
     }
 
-    public Date getDateOfBirth() { return dateOfBirth; }
+    public LocalDateTime getDateOfBirth() { return dateOfBirth; }
+
+    public String getDisplayDateOfBirth() {
+        return dateOfBirth == null ?
+                "" :
+                dateOfBirth.format(DateTimeFormatter.ofPattern("d MMMM uuuu"));
+    }
+
 
     public String getBio() { return bio; }
 
@@ -122,7 +131,7 @@ public class ApplicationUser implements UserDetails {
 
     public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public void setDateOfBirth(LocalDateTime dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
     public void setBio(String bio) { this.bio = bio; }
 
@@ -135,10 +144,6 @@ public class ApplicationUser implements UserDetails {
     public Set<ApplicationUser> getFollowing() { return following; }
 
     public Set<ApplicationUser> getFollowers() { return followers; }
-
-    public void addFollower(ApplicationUser user) { followers.add(user); }
-
-    public void removeFollower(ApplicationUser user) { followers.remove(user); }
 
     public void addFollowing(ApplicationUser user) { following.add(user); }
 

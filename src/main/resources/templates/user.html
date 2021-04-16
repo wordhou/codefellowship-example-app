@@ -10,8 +10,7 @@
 <header th:replace="fragments/page :: header"></header>
 
 <main>
-    <h1>User profile page</h1>
-    <h1 th:text="${userSubject.firstName}"></h1>
+    <h1 th:text="${userSubject.displayName} + '\'s Profile Page'"></h1>
     <section th:replace="fragments/user :: detail(${userSubject})"></section>
 </main>
 

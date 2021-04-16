@@ -8,6 +8,7 @@ import com.edhou.codefellowship.services.PostRepository;
 import com.edhou.codefellowship.services.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -77,7 +79,7 @@ public class UserController {
                              String firstName,
                              String lastName,
                              String bio,
-                             //Date dateOfBirth,
+                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime dateOfBirth,
                              Principal principal) {
         ApplicationUser user = repo.getOne(userId);
         if (!principal.getName().equals(user.getUsername()))
@@ -85,7 +87,7 @@ public class UserController {
         if (firstName != null) user.setFirstName(firstName);
         if (lastName != null) user.setLastName(lastName);
         if (bio != null) user.setBio(bio);
-        //if (dateOfBirth != null) user.setDateOfBirth(dateOfBirth);
+        if (dateOfBirth != null) user.setDateOfBirth(dateOfBirth);
         repo.save(user);
 
         return new RedirectView("/users/" + user.getId());
@@ -112,8 +114,8 @@ public class UserController {
             throw new AuthorizationServiceException("Not sure if this is the right exception to throw");
         ApplicationUser user = repo.getByUsername(principal.getName());
         ApplicationUser userSubject = repo.getOne(userId);
-        userSubject.removeFollower(user);
-        repo.save(userSubject);
+        user.removeFollowing(userSubject);
+        repo.save(user);
         return new RedirectView("/users/" + userSubject.getId());
     }
 
