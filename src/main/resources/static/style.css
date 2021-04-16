@@ -8,14 +8,14 @@ body > header {
   flex-flow: row wrap;
   font: 1em Helvetica, sans-serif;
   align-items: baseline;
-  background-color: darkgrey;
+  background-color: #e0113e;
   color: white;
 }
 
 body > header > h1 {
   display: block;
-  margin: 0 0.8em;
-  font-size: 1.5em;
+  margin: 0.4em 0.8em;
+  font-size: 1.8em;
   font-weight: bold;
 }
 
@@ -41,10 +41,11 @@ a {
 .navbar-top li {
   display: block;
   padding: 0.3em;
+  margin-left: 0.4em;
 }
 
 body > footer {
-  background-color: darkgrey;
+  background-color: #e0113e;
   padding: 0.5em;
   font: 1em Helvetica, sans-serif;
   color: white;
@@ -105,17 +106,23 @@ padding: 0.4em;
 
 .detail {
   padding: 1em;
-  background: lightslategrey;
+  background: #eee;
   margin: 0.5em;
 }
 
 .detail h1 {
   font-weight: bold;
+  margin: 0.3em 0 0.3em 0;
   font-size: 1.2em;
 }
 
 .detail h2 {
   font-size: 1.1em;
+  margin: 0.2em 0.2em 0 0.2em;
+}
+
+.field {
+  margin: 0 0 0 1em;
 }
 
 .editable-field {
@@ -140,14 +147,29 @@ padding: 0.4em;
   pointer-events: all;
 }
 
-a.album-link {
-  color: black;
+body > header a {
+  color: #e6eff2;
+  font-weight: bold;
 }
 
-a.album-link:hover {
-  color: black;
+body > header a:hover {
+  color: #white;
+  text-decoration: underline;
 }
 
-a.album-link:active {
-  color: black;
+body > header a:active {
+  color: #918f8f;
+}
+
+.listing a {
+  color: #d15957;
+}
+
+.listing a:hover {
+  color: #e0113e;
+  text-decoration: underline;
+}
+
+.listing a:active {
+  color: #bca99c;
 }
